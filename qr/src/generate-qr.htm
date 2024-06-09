@@ -48,14 +48,14 @@
     <script type="text/javascript">
         let qr = null
         const elements = {
-            qrContainer: document.getElementById("qr-container"),
-            qrSizeSlider: document.getElementById("qr-size-slider"),
-            qrSizeInput: document.getElementById("qr-size-input"),
-            qrColorDarkSelector: document.getElementById("qr-color-dark-selector"),
-            qrColorLightSelector: document.getElementById("qr-color-light-selector"),
+            qrContainer: document.getElementById('qr-container'),
+            qrSizeSlider: document.getElementById('qr-size-slider'),
+            qrSizeInput: document.getElementById('qr-size-input'),
+            qrColorDarkSelector: document.getElementById('qr-color-dark-selector'),
+            qrColorLightSelector: document.getElementById('qr-color-light-selector'),
         }
         let qrConfig = {
-            text: "1234",
+            text: '1234',
             width: 250,
             height: 250,
             colorDark: '#000000',
@@ -69,31 +69,31 @@
           qr = new QRCode(elements.qrContainer, qrConfig)
         }
 
-        document.getElementById('qr-text').addEventListener("input", e => {
+        document.getElementById('qr-text').addEventListener('input', e => {
             qrConfig.text = e.currentTarget.value
             initQRCode()
         })
 
-        document.getElementById('qr-size-slider').addEventListener("input", e => {
+        document.getElementById('qr-size-slider').addEventListener('input', e => {
             qrConfig.width = e.currentTarget.value
             qrConfig.height = e.currentTarget.value
             elements.qrSizeInput.value = e.currentTarget.value
             initQRCode()
         })
 
-        document.getElementById('qr-size-input').addEventListener("input", e => {
+        document.getElementById('qr-size-input').addEventListener('input', e => {
             qrConfig.width = e.currentTarget.value
             qrConfig.height = e.currentTarget.value
             elements.qrSizeSlider.value = e.currentTarget.value
             initQRCode()
         })
 
-        document.getElementById('qr-color-light-selector').addEventListener("input", e => {
+        document.getElementById('qr-color-light-selector').addEventListener('input', e => {
             qrConfig.colorLight = e.currentTarget.value
             initQRCode()
         })
 
-        document.getElementById('qr-color-dark-selector').addEventListener("input", e => {
+        document.getElementById('qr-color-dark-selector').addEventListener('input', e => {
             qrConfig.colorDark = e.currentTarget.value
             initQRCode()
         })
