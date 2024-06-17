@@ -1,106 +1,140 @@
 <html lang="en">
 <head>
     <title>Generate QR code</title>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script
+            src="https://cdn.jsdelivr.net/npm/easyqrcodejs@4.6.1/dist/easy.qrcode.min.js"
+            integrity="sha256-Fo2ReOrm4CpFeRT3gEiA303kO8giOmwEkm6uz3+6DBg="
+            crossorigin="anonymous">
+    </script>
     <style>
         div, input, table {margin: 12px 8px}
         table {border: 1px dashed}
-        td {padding: 2px 4px; vertical-align: text-bottom;}
+        td {padding: 2px 4px;vertical-align: text-bottom;}
     </style>
 </head>
 <body>
-    <h1>Generate QR code</h1>
-    <p>Using <a href="https://github.com/davidshimjs/qrcodejs">qrcodejs</a></p>
-    <table>
-        <tr>
-            <td>
-                <label for="qr-text">QR text</label>
-            </td>
-            <td>
-                <input type="text" id="qr-text" value="1234">
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <label for="qr-size-slider">Size</label>
-            </td>
-            <td>
-                <input type="range" id="qr-size-slider" name="qr-size-slider" min="100" max="2000" value="250" />
-                <input type="number" id="qr-size-input" name="qr-size-input" min="100" max="2000" value="250" />
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <label for="qr-color-dark-selector">Dark color</label>
-            </td>
-            <td>
-                <input type="color" id="qr-color-dark-selector" name="qr-color-dark-selector" value="#000000" />
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <label for="qr-color-light-selector">Light color</label>
-            </td>
-            <td>
-                <input type="color" id="qr-color-light-selector" name="qr-color-light-selector" value="#ffffff" />
-            </td>
-        </tr>
-    </table>
-    <div id="qr-container" class="qr-container"></div>
-    <script type="text/javascript">
-        let qr = null
-        const elements = {
-            qrContainer: document.getElementById('qr-container'),
-            qrSizeSlider: document.getElementById('qr-size-slider'),
-            qrSizeInput: document.getElementById('qr-size-input'),
-            qrColorDarkSelector: document.getElementById('qr-color-dark-selector'),
-            qrColorLightSelector: document.getElementById('qr-color-light-selector'),
-        }
-        let qrConfig = {
-            text: '1234',
-            width: 250,
-            height: 250,
-            colorDark: '#000000',
-            colorLight: '#FFFFFF',
-            correctLevel : QRCode.CorrectLevel.H
-        }
+<h1>Generate QR code</h1>
+<h2 style="font-style: italic">WIP - only partly implemented</h2>
+<p>Using <a href="https://www.jsdelivr.com/package/npm/easyqrcodejs">easyqrcodejs</a></p>
+<table>
+    <tr>
+        <td>
+            <label for="qr-text">QR text</label>
+        </td>
+        <td>
+            <input type="text" id="qr-text" value="1234">
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <label for="qr-size-slider">Size</label>
+        </td>
+        <td>
+            <input type="range" id="qr-size-slider" name="qr-size-slider" min="100" max="2000" value="250"/>
+            <input type="number" id="qr-size-input" name="qr-size-input" min="100" max="2000" value="250"/>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <label for="qr-data-dot-color-selector">Data dot color</label>
+        </td>
+        <td>
+            <input type="color" id="qr-data-dot-color-selector" name="qr-data-dot-color-selector" value="#000000"/>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <label for="qr-background-color-selector">Background color</label>
+        </td>
+        <td>
+            <input type="color" id="qr-background-color-selector" name="qr-background-color-selector" value="#ffffff"/>
+        </td>
+    </tr>
+</table>
+<div id="qr-container" class="qr-container"></div>
+<script type="text/javascript">
+  let options = {
+    text: "1234",
+    width: 250,
+    height: 250,
+    colorDark: "#000000",
+    colorLight: "#ffffff",
+    correctLevel: QRCode.CorrectLevel.H, // L, M, Q, H
+    dotScale: 0.8,
+    dotScaleTiming: 0.8,
+    dotScaleTiming_H: 0.8,
+    dotScaleTiming_V: 0.8,
+    dotScaleA: 0.2,
+    dotScaleAO: 0.2,
+    dotScaleAI: 0.2,
+    quietZone: 0,
+    quietZoneColor: "rgba(0,0,0,0)",
+    binary: false,
+    PO: '#e1622f', // Global Position Outer color. if not set, the defaut is `colorDark`
+    PI: '#aa5b71', // Global Position Inner color. if not set, the defaut is `colorDark`
+    PO_TL: '', // Position Outer color - Top Left
+    PI_TL: '', // Position Inner color - Top Left
+    PO_TR: '', // Position Outer color - Top Right
+    PI_TR: '', // Position Inner color - Top Right
+    PO_BL: '#00FF00', // Position Outer color - Bottom Left
+    PI_BL: '', // Position Inner color - Bottom Left
+    AO: '', // Alignment Outer. if not set, the defaut is `colorDark`
+    AI: '', // Alignment Inner. if not set, the defaut is `colorDark`
+    timing: '#e1622f', // Global Timing color. if not set, the defaut is `colorDark`
+    timing_H: '', // Horizontal timing color
+    timing_V: '', // Vertical timing color
+    logo: "data:image/png;base64,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",
+    //logoWidth: 40, // fixed logo width. default is `width/3.5`
+    //logoHeight: 40, // fixed logo height. default is `heigth/3.5`
+    logoBackgroundColor: '#fffff', // Logo backgroud color, Invalid when `logBgTransparent` is true; default is '#ffffff'
+    logoMaxWidth: undefined, // Maximum logo width. if set will ignore `logoWidth` value
+    logoMaxHeight: undefined, // Maximum logo height. if set will ignore `logoHeight` value
+    logoBackgroundTransparent: true, // Whether use transparent image, default is false
+  };
 
-        const initQRCode = () => {
-          qr = null
-          elements.qrContainer.innerHTML = null
-          qr = new QRCode(elements.qrContainer, qrConfig)
-        }
+  const elements = {
+    qrContainer: document.getElementById('qr-container'),
+    qrSizeSlider: document.getElementById('qr-size-slider'),
+    qrSizeInput: document.getElementById('qr-size-input'),
+    qrColorDarkSelector: document.getElementById('qr-data-dot-color-selector'),
+    qrColorLightSelector: document.getElementById('qr-background-color-selector'),
+  }
 
-        document.getElementById('qr-text').addEventListener('input', e => {
-            qrConfig.text = e.currentTarget.value
-            initQRCode()
-        })
+  const drawQrCode = () => {
+    elements.qrContainer.innerHTML = null
+    new QRCode(document.getElementById("qr-container"), options)
+  }
 
-        elements.qrSizeSlider.addEventListener('input', e => {
-            qrConfig.width = e.currentTarget.value
-            qrConfig.height = e.currentTarget.value
-            elements.qrSizeInput.value = e.currentTarget.value
-            initQRCode()
-        })
+  document.getElementById('qr-text').addEventListener('input', e => {
+    options.text = e.currentTarget.value
+    drawQrCode()
+  })
 
-        elements.qrSizeInput.addEventListener('input', e => {
-            qrConfig.width = e.currentTarget.value
-            qrConfig.height = e.currentTarget.value
-            elements.qrSizeSlider.value = e.currentTarget.value
-            initQRCode()
-        })
+  elements.qrSizeSlider.addEventListener('input', e => {
+    options.width = e.currentTarget.value
+    options.height = e.currentTarget.value
+    elements.qrSizeInput.value = e.currentTarget.value
+    drawQrCode()
+  })
 
-        elements.qrColorLightSelector.addEventListener('input', e => {
-            qrConfig.colorLight = e.currentTarget.value
-            initQRCode()
-        })
+  elements.qrSizeInput.addEventListener('input', e => {
+    options.width = e.currentTarget.value
+    options.height = e.currentTarget.value
+    elements.qrSizeSlider.value = e.currentTarget.value
+    drawQrCode()
+  })
 
-        elements.qrColorDarkSelector.addEventListener('input', e => {
-            qrConfig.colorDark = e.currentTarget.value
-            initQRCode()
-        })
+  elements.qrColorLightSelector.addEventListener('input', e => {
+    options.colorLight = e.currentTarget.value
+    drawQrCode()
+  })
 
-        initQRCode()
-    </script>
+  elements.qrColorDarkSelector.addEventListener('input', e => {
+    options.colorDark = e.currentTarget.value
+    drawQrCode()
+  })
+
+  drawQrCode()
+</script>
 </body>
 </html>
