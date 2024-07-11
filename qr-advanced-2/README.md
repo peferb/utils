@@ -7,6 +7,8 @@ Simple QR code generation using [davidshimjs qrcodejs](https://github.com/davids
 - [x] Resize
 - [x] Select foreground/background color
 - [x] Select positioning colors
-- [x] Image in QR code
+- [ ] Image in QR code
 - [x] Spacing height
 - [x] Spacing color
+- [x] Timing X/Y color
+- [x] Binary Content

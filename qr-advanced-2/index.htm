@@ -37,6 +37,14 @@
             </tr>
             <tr>
                 <td>
+                    <label for="qr-binary">Binary</label>
+                </td>
+                <td>
+                    <input type="checkbox" id="qr-binary">
+                </td>
+            </tr>
+            <tr>
+                <td>
                     <label for="qr-size-slider">Size</label>
                 </td>
                 <td>
@@ -164,6 +172,7 @@
   const elements = {
     qrContainer: document.getElementById('qr-container'),
     qrSizeSlider: document.getElementById('qr-size-slider'),
+    qrBinaryCheckbox: document.getElementById('qr-binary'),
     qrSizeInput: document.getElementById('qr-size-input'),
     qrDotScaleSlider: document.getElementById('qr-dot-scale-slider'),
     qrDotScaleInput: document.getElementById('qr-dot-scale-input'),
@@ -196,6 +205,11 @@
 
   document.getElementById('qr-text').addEventListener('input', e => {
     options.text = e.currentTarget.value
+    draw()
+  })
+
+  elements.qrBinaryCheckbox.addEventListener('input', e => {
+    options.binary = e.currentTarget.checked
     draw()
   })
 
