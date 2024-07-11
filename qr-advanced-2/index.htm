@@ -32,7 +32,7 @@
                     <label for="qr-text">Content</label>
                 </td>
                 <td>
-                    <input type="text" id="qr-text" value="1234">
+                    <input type="text" id="qr-text" value="1234567890abcdefghijklmopqrstuvwxyzåöö">
                 </td>
             </tr>
             <tr>
@@ -42,6 +42,15 @@
                 <td>
                     <input type="range" id="qr-size-slider" min="100" max="2000" value="250"/>
                     <input type="number" id="qr-size-input" min="100" max="2000" value="250"/>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="qr-dot-scale-slider">Dot</label>
+                </td>
+                <td>
+                    <input type="range" id="qr-dot-scale-slider" min="10" max="100" step="10" value="80"/>
+                    <input type="number" id="qr-dot-scale-input" min="10" max="100" step="10" value="80"/>
                 </td>
             </tr>
             <tr>
@@ -108,19 +117,19 @@
 </div>
 <script type="text/javascript">
   let options = {
-    text: "1234",
+    text: "1234567890abcdefghijklmopqrstuvwxyzåöö",
     width: 250,
     height: 250,
     colorDark: "#000000",
     colorLight: "#ffffff",
     correctLevel: QRCode.CorrectLevel.H, // L, M, Q, H
-    dotScale: .8,
+    dotScale: 0.8,
     dotScaleTiming: 0.8,
     dotScaleTiming_H: 0.8,
     dotScaleTiming_V: 0.8,
     dotScaleA: 0.2,
-    dotScaleAO: 0.2,
-    dotScaleAI: 0.2,
+    dotScaleAO: 0.8,
+    dotScaleAI: 0.8,
     quietZone: 0,
     quietZoneColor: "rgba(0,0,0,0)",
     binary: false,
@@ -156,6 +165,8 @@
     qrContainer: document.getElementById('qr-container'),
     qrSizeSlider: document.getElementById('qr-size-slider'),
     qrSizeInput: document.getElementById('qr-size-input'),
+    qrDotScaleSlider: document.getElementById('qr-dot-scale-slider'),
+    qrDotScaleInput: document.getElementById('qr-dot-scale-input'),
     qrSpacingWidthSlider: document.getElementById('qr-spacing-width-slider'),
     qrSpacingWidthInput: document.getElementById('qr-spacing-width-input'),
     qrSpacingHeightSlider: document.getElementById('qr-spacing-height-slider'),
@@ -198,6 +209,17 @@
     options.width = Number.parseInt(e.currentTarget.value)
     options.height = Number.parseInt(e.currentTarget.value)
     elements.qrSizeSlider.value = e.currentTarget.value
+    draw()
+  })
+
+  elements.qrDotScaleSlider.addEventListener('input', e => {
+    elements.qrDotScaleInput.value = e.currentTarget.value
+    options.dotScale = Number.parseInt(e.currentTarget.value) / 100
+    draw()
+  })
+  elements.qrDotScaleInput.addEventListener('input', e => {
+    elements.qrDotScaleSlider.value = e.currentTarget.value
+    options.dotScale = Number.parseInt(e.currentTarget.value) / 100
     draw()
   })
 
