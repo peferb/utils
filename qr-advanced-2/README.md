@@ -12,3 +12,4 @@ Simple QR code generation using [davidshimjs qrcodejs](https://github.com/davids
 - [x] Spacing color
 - [x] Timing X/Y color
 - [x] Binary Content
+- [x] Error recovery level

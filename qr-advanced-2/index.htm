@@ -7,9 +7,9 @@
             crossorigin="anonymous">
     </script>
     <style>
-        div, input, table {margin: 12px 8px}
+        div, input, select, table {margin: 12px 8px}
         table {border: 1px dashed}
-        td {padding: 2px 4px;vertical-align: text-bottom;}
+        td {padding: 0 4px;vertical-align: text-bottom;}
         .qr-container {
             background-color: #DDD;
             display: flex;
@@ -33,6 +33,19 @@
                 </td>
                 <td>
                     <input type="text" id="qr-text" value="1234567890abcdefghijklmopqrstuvwxyzåöö">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="qr-error-correction">Error correction</label>
+                </td>
+                <td>
+                    <select id="qr-error-correction">
+                        <option value="L">Low (7% restoration)</option>
+                        <option value="M">Medium (15% restoration)</option>
+                        <option value="Q">Quartile (25% restoration)</option>
+                        <option value="H" selected>High (30% restoration)</option>
+                    </select>
                 </td>
             </tr>
             <tr>
@@ -125,7 +138,7 @@
 </div>
 <script type="text/javascript">
   let options = {
-    text: "1234567890abcdefghijklmopqrstuvwxyzåöö",
+    text: "0123456789",
     width: 250,
     height: 250,
     colorDark: "#000000",
@@ -171,6 +184,7 @@
 
   const elements = {
     qrContainer: document.getElementById('qr-container'),
+    qrErrorCorrection: document.getElementById('qr-error-correction'),
     qrSizeSlider: document.getElementById('qr-size-slider'),
     qrBinaryCheckbox: document.getElementById('qr-binary'),
     qrSizeInput: document.getElementById('qr-size-input'),
@@ -205,6 +219,11 @@
 
   document.getElementById('qr-text').addEventListener('input', e => {
     options.text = e.currentTarget.value
+    draw()
+  })
+
+  elements.qrErrorCorrection.addEventListener('input', e => {
+    options.correctLevel = QRCode.CorrectLevel[e.currentTarget.value]
     draw()
   })
 
