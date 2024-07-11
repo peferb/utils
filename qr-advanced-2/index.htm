@@ -43,6 +43,15 @@
     </tr>
     <tr>
         <td>
+            <label for="qr-size-slider">Spacing X</label>
+        </td>
+        <td>
+            <input type="range" id="qr-spacing-width-slider" min="0" max="800" value="0"/>
+            <input type="number" id="qr-spacing-width-input" min="0" max="800" value="0"/>
+        </td>
+    </tr>
+    <tr>
+        <td>
             <label for="qr-size-slider">Spacing Y</label>
         </td>
         <td>
@@ -114,20 +123,22 @@
     logoMaxWidth: undefined, // Maximum logo width. if set will ignore `logoWidth` value
     logoMaxHeight: undefined, // Maximum logo height. if set will ignore `logoHeight` value
     logoBackgroundTransparent: true, // Whether use transparent image, default is false
-  };
+  }
 
   const elements = {
     qrContainer: document.getElementById('qr-container'),
     qrSizeSlider: document.getElementById('qr-size-slider'),
-    qrSpacingHeightSlider: document.getElementById('qr-spacing-height-slider'),
     qrSizeInput: document.getElementById('qr-size-input'),
+    qrSpacingWidthSlider: document.getElementById('qr-spacing-width-slider'),
+    qrSpacingWidthInput: document.getElementById('qr-spacing-width-input'),
+    qrSpacingHeightSlider: document.getElementById('qr-spacing-height-slider'),
     qrSpacingHeightInput: document.getElementById('qr-spacing-height-input'),
     qrColorForegroundSelector: document.getElementById('qr-data-dot-color-selector'),
     qrColorBackgroundSelector: document.getElementById('qr-background-color-selector'),
     qrColorSpacingSelector: document.getElementById('spacing-color-selector'),
   }
 
-  let QR;
+  let QR
   const drawQrCode = () => {
     elements.qrContainer.innerHTML = null
     QR = new QRCode(document.getElementById("qr-container"), options)
@@ -154,14 +165,27 @@
   elements.qrSpacingHeightSlider.addEventListener('input', e => {
     elements.qrSpacingHeightInput.value = e.currentTarget.value
     const spacing = Number.parseInt(e.currentTarget.value)
-    const qrHeight = QR._htOption.height;
+    const qrHeight = QR._htOption.height
     elements.qrContainer.style.height = `${spacing + qrHeight}px`
   })
   elements.qrSpacingHeightInput.addEventListener('input', e => {
     elements.qrSpacingHeightSlider.value = e.currentTarget.value
     const spacing = Number.parseInt(e.currentTarget.value)
-    const qrHeight = QR._htOption.height;
+    const qrHeight = QR._htOption.height
     elements.qrContainer.style.height = `${spacing + qrHeight}px`
+  })
+
+  elements.qrSpacingWidthSlider.addEventListener('input', e => {
+    elements.qrSpacingWidthInput.value = e.currentTarget.value
+    const spacing = Number.parseInt(e.currentTarget.value)
+    const qrWidth = QR._htOption.width
+    elements.qrContainer.style.width = `${spacing + qrWidth}px`
+  })
+  elements.qrSpacingWidthInput.addEventListener('input', e => {
+    elements.qrSpacingWidthSlider.value = e.currentTarget.value
+    const spacing = Number.parseInt(e.currentTarget.value)
+    const qrWidth = QR._htOption.width
+    elements.qrContainer.style.width = `${spacing + qrWidth}px`
   })
 
   elements.qrColorBackgroundSelector.addEventListener('input', e => {
