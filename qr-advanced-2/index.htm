@@ -83,6 +83,22 @@
             <input type="color" id="spacing-color-selector" value="#DDDDDD"/>
         </td>
     </tr>
+    <tr>
+        <td>
+            <label for="timing-horizontal-color-selector">Timing X</label>
+        </td>
+        <td>
+            <input type="color" id="timing-horizontal-color-selector" value="#000000"/>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <label for="timing-vertical-color-selector">Timing Y</label>
+        </td>
+        <td>
+            <input type="color" id="timing-vertical-color-selector" value="#000000"/>
+        </td>
+    </tr>
 </table>
 <div id="qr-container" class="qr-container"></div>
 <script type="text/javascript">
@@ -104,18 +120,18 @@
     quietZoneColor: "rgba(0,0,0,0)",
     binary: false,
     PO: '#000000', // Global Position Outer color. if not set, the defaut is `colorDark`
-    PI: '#000', // Global Position Inner color. if not set, the defaut is `colorDark`
+    PI: '#000000', // Global Position Inner color. if not set, the defaut is `colorDark`
     PO_TL: '', // Position Outer color - Top Left
     PI_TL: '', // Position Inner color - Top Left
     PO_TR: '', // Position Outer color - Top Right
     PI_TR: '', // Position Inner color - Top Right
-    PO_BL: '#000', // Position Outer color - Bottom Left
+    PO_BL: '#000000', // Position Outer color - Bottom Left
     PI_BL: '', // Position Inner color - Bottom Left
     AO: '', // Alignment Outer. if not set, the defaut is `colorDark`
     AI: '', // Alignment Inner. if not set, the defaut is `colorDark`
-    timing: '#000', // Global Timing color. if not set, the defaut is `colorDark`
-    timing_H: '', // Horizontal timing color
-    timing_V: '', // Vertical timing color
+    timing: '#D00', // Global Timing color. if not set, the defaut is `colorDark`
+    timing_H: '#000000', // Horizontal timing color
+    timing_V: '#000000', // Vertical timing color
     logo: "",
     //logoWidth: 40, // fixed logo width. default is `width/3.5`
     //logoHeight: 40, // fixed logo height. default is `heigth/3.5`
@@ -136,6 +152,8 @@
     qrColorForegroundSelector: document.getElementById('qr-data-dot-color-selector'),
     qrColorBackgroundSelector: document.getElementById('qr-background-color-selector'),
     qrColorSpacingSelector: document.getElementById('spacing-color-selector'),
+    qrColorTimingHorizontalSelector: document.getElementById('timing-horizontal-color-selector'),
+    qrColorTimingVerticalSelector: document.getElementById('timing-vertical-color-selector'),
   }
 
   let QR
@@ -162,6 +180,30 @@
     drawQrCode()
   })
 
+  elements.qrColorBackgroundSelector.addEventListener('input', e => {
+    options.colorLight = e.currentTarget.value
+    drawQrCode()
+  })
+
+  elements.qrColorForegroundSelector.addEventListener('input', e => {
+    options.colorDark = e.currentTarget.value
+    drawQrCode()
+  })
+
+  elements.qrColorTimingHorizontalSelector.addEventListener('input', e => {
+    options.timing_H = e.currentTarget.value
+    drawQrCode()
+  })
+
+  elements.qrColorTimingVerticalSelector.addEventListener('input', e => {
+    options.timing_V = e.currentTarget.value
+    drawQrCode()
+  })
+
+  elements.qrColorSpacingSelector.addEventListener('input', e => {
+    elements.qrContainer.style.backgroundColor = e.currentTarget.value
+  })
+
   elements.qrSpacingHeightSlider.addEventListener('input', e => {
     elements.qrSpacingHeightInput.value = e.currentTarget.value
     const spacing = Number.parseInt(e.currentTarget.value)
@@ -186,20 +228,6 @@
     const spacing = Number.parseInt(e.currentTarget.value)
     const qrWidth = QR._htOption.width
     elements.qrContainer.style.width = `${spacing + qrWidth}px`
-  })
-
-  elements.qrColorBackgroundSelector.addEventListener('input', e => {
-    options.colorLight = e.currentTarget.value
-    drawQrCode()
-  })
-
-  elements.qrColorForegroundSelector.addEventListener('input', e => {
-    options.colorDark = e.currentTarget.value
-    drawQrCode()
-  })
-
-  elements.qrColorSpacingSelector.addEventListener('input', e => {
-    elements.qrContainer.style.backgroundColor = e.currentTarget.value
   })
 
   drawQrCode()
