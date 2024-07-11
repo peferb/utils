@@ -1,8 +1,12 @@
 # Create QR codes easily
 
-Simple QR code generation using [qrcodejs](https://github.com/davidshimjs/qrcodejs)
+Simple QR code generation using [davidshimjs qrcodejs](https://github.com/davidshimjs/qrcodejs), trollface from [MyNameIsTroll](https://github.com/MyNameIsTroll/trollfaces)
 
-### TODO
-Test implement using other packages for more options
-- https://github.com/bitjson/qr-code
-- https://www.npmjs.com/package/easyqrcodejs
+### Features
+- [x] Custom text
+- [x] Resize
+- [x] Select foreground/background color
+- [x] Select positioning colors
+- [x] Image in QR code
+- [x] Spacing height
+- [x] Spacing color

@@ -15,8 +15,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            width: 512px;
-            height: 512px;
+            width: 250px;
         }
     </style>
 </head>
@@ -27,7 +26,7 @@
 <table>
     <tr>
         <td>
-            <label for="qr-text">QR text</label>
+            <label for="qr-text">Content</label>
         </td>
         <td>
             <input type="text" id="qr-text" value="1234">
@@ -38,34 +37,50 @@
             <label for="qr-size-slider">Size</label>
         </td>
         <td>
-            <input type="range" id="qr-size-slider" name="qr-size-slider" min="100" max="2000" value="250"/>
-            <input type="number" id="qr-size-input" name="qr-size-input" min="100" max="2000" value="250"/>
+            <input type="range" id="qr-size-slider" min="100" max="2000" value="250"/>
+            <input type="number" id="qr-size-input" min="100" max="2000" value="250"/>
         </td>
     </tr>
     <tr>
         <td>
-            <label for="qr-data-dot-color-selector">Data dot color</label>
+            <label for="qr-size-slider">Spacing Y</label>
         </td>
         <td>
-            <input type="color" id="qr-data-dot-color-selector" name="qr-data-dot-color-selector" value="#000000"/>
+            <input type="range" id="qr-spacing-height-slider" min="0" max="800" value="0"/>
+            <input type="number" id="qr-spacing-height-input" min="0" max="800" value="0"/>
         </td>
     </tr>
     <tr>
         <td>
-            <label for="qr-background-color-selector">Background color</label>
+            <label for="qr-data-dot-color-selector">Foreground</label>
         </td>
         <td>
-            <input type="color" id="qr-background-color-selector" name="qr-background-color-selector" value="#ffffff"/>
+            <input type="color" id="qr-data-dot-color-selector" value="#000000"/>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <label for="qr-background-color-selector">Background</label>
+        </td>
+        <td>
+            <input type="color" id="qr-background-color-selector" value="#ffffff"/>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <label for="spacing-color-selector">Spacing</label>
+        </td>
+        <td>
+            <input type="color" id="spacing-color-selector" value="#DDDDDD"/>
         </td>
     </tr>
 </table>
-<div style="background-color: black; width: 16px; height: 16px"></div>
 <div id="qr-container" class="qr-container"></div>
 <script type="text/javascript">
   let options = {
     text: "1234",
-    width: 400,
-    height: 400,
+    width: 250,
+    height: 250,
     colorDark: "#000000",
     colorLight: "#ffffff",
     correctLevel: QRCode.CorrectLevel.H, // L, M, Q, H
@@ -104,14 +119,18 @@
   const elements = {
     qrContainer: document.getElementById('qr-container'),
     qrSizeSlider: document.getElementById('qr-size-slider'),
+    qrSpacingHeightSlider: document.getElementById('qr-spacing-height-slider'),
     qrSizeInput: document.getElementById('qr-size-input'),
-    qrColorDarkSelector: document.getElementById('qr-data-dot-color-selector'),
-    qrColorLightSelector: document.getElementById('qr-background-color-selector'),
+    qrSpacingHeightInput: document.getElementById('qr-spacing-height-input'),
+    qrColorForegroundSelector: document.getElementById('qr-data-dot-color-selector'),
+    qrColorBackgroundSelector: document.getElementById('qr-background-color-selector'),
+    qrColorSpacingSelector: document.getElementById('spacing-color-selector'),
   }
 
+  let QR;
   const drawQrCode = () => {
     elements.qrContainer.innerHTML = null
-    new QRCode(document.getElementById("qr-container"), options)
+    QR = new QRCode(document.getElementById("qr-container"), options)
   }
 
   document.getElementById('qr-text').addEventListener('input', e => {
@@ -125,7 +144,6 @@
     elements.qrSizeInput.value = e.currentTarget.value
     drawQrCode()
   })
-
   elements.qrSizeInput.addEventListener('input', e => {
     options.width = e.currentTarget.value
     options.height = e.currentTarget.value
@@ -133,14 +151,31 @@
     drawQrCode()
   })
 
-  elements.qrColorLightSelector.addEventListener('input', e => {
+  elements.qrSpacingHeightSlider.addEventListener('input', e => {
+    elements.qrSpacingHeightInput.value = e.currentTarget.value
+    const spacing = Number.parseInt(e.currentTarget.value)
+    const qrHeight = QR._htOption.height;
+    elements.qrContainer.style.height = `${spacing + qrHeight}px`
+  })
+  elements.qrSpacingHeightInput.addEventListener('input', e => {
+    elements.qrSpacingHeightSlider.value = e.currentTarget.value
+    const spacing = Number.parseInt(e.currentTarget.value)
+    const qrHeight = QR._htOption.height;
+    elements.qrContainer.style.height = `${spacing + qrHeight}px`
+  })
+
+  elements.qrColorBackgroundSelector.addEventListener('input', e => {
     options.colorLight = e.currentTarget.value
     drawQrCode()
   })
 
-  elements.qrColorDarkSelector.addEventListener('input', e => {
+  elements.qrColorForegroundSelector.addEventListener('input', e => {
     options.colorDark = e.currentTarget.value
     drawQrCode()
+  })
+
+  elements.qrColorSpacingSelector.addEventListener('input', e => {
+    elements.qrContainer.style.backgroundColor = e.currentTarget.value
   })
 
   drawQrCode()
