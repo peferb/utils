@@ -214,12 +214,22 @@
 
   elements.qrDotScaleSlider.addEventListener('input', e => {
     elements.qrDotScaleInput.value = e.currentTarget.value
-    options.dotScale = Number.parseInt(e.currentTarget.value) / 100
+    const val = Number.parseInt(e.currentTarget.value) / 100
+    options.dotScale = val
+    options.dotScaleTiming_H = val
+    options.dotScaleTiming_V = val
+    options.dotScaleAI = val
+    options.dotScaleAO = val
     draw()
   })
   elements.qrDotScaleInput.addEventListener('input', e => {
     elements.qrDotScaleSlider.value = e.currentTarget.value
-    options.dotScale = Number.parseInt(e.currentTarget.value) / 100
+    const val = Number.parseInt(e.currentTarget.value) / 100
+    options.dotScale = val
+    options.dotScaleTiming_H = val
+    options.dotScaleTiming_V = val
+    options.dotScaleAI = val
+    options.dotScaleAO = val
     draw()
   })
 
