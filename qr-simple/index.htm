@@ -1,0 +1,106 @@
+<html lang="en">
+<head>
+    <title>Generate QR code</title>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <style>
+        div, input, table {margin: 12px 8px}
+        table {border: 1px dashed}
+        td {padding: 2px 4px; vertical-align: text-bottom;}
+    </style>
+</head>
+<body>
+<h1>Generate QR code</h1>
+<p>Using <a href="https://github.com/davidshimjs/qrcodejs">qrcodejs</a></p>
+<table>
+    <tr>
+        <td>
+            <label for="qr-text">QR text</label>
+        </td>
+        <td>
+            <input type="text" id="qr-text" value="1234">
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <label for="qr-size-slider">Size</label>
+        </td>
+        <td>
+            <input type="range" id="qr-size-slider" name="qr-size-slider" min="100" max="2000" value="250" />
+            <input type="number" id="qr-size-input" name="qr-size-input" min="100" max="2000" value="250" />
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <label for="qr-color-dark-selector">Dark color</label>
+        </td>
+        <td>
+            <input type="color" id="qr-color-dark-selector" name="qr-color-dark-selector" value="#000000" />
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <label for="qr-color-light-selector">Light color</label>
+        </td>
+        <td>
+            <input type="color" id="qr-color-light-selector" name="qr-color-light-selector" value="#ffffff" />
+        </td>
+    </tr>
+</table>
+<div id="qr-container" class="qr-container"></div>
+<script type="text/javascript">
+  let qr = null
+  const elements = {
+    qrContainer: document.getElementById('qr-container'),
+    qrSizeSlider: document.getElementById('qr-size-slider'),
+    qrSizeInput: document.getElementById('qr-size-input'),
+    qrColorDarkSelector: document.getElementById('qr-color-dark-selector'),
+    qrColorLightSelector: document.getElementById('qr-color-light-selector'),
+  }
+  let qrConfig = {
+    text: '1234',
+    width: 250,
+    height: 250,
+    colorDark: '#000000',
+    colorLight: '#FFFFFF',
+    correctLevel : QRCode.CorrectLevel.H
+  }
+
+  const initQRCode = () => {
+    qr = null
+    elements.qrContainer.innerHTML = null
+    qr = new QRCode(elements.qrContainer, qrConfig)
+  }
+
+  document.getElementById('qr-text').addEventListener('input', e => {
+    qrConfig.text = e.currentTarget.value
+    initQRCode()
+  })
+
+  elements.qrSizeSlider.addEventListener('input', e => {
+    qrConfig.width = e.currentTarget.value
+    qrConfig.height = e.currentTarget.value
+    elements.qrSizeInput.value = e.currentTarget.value
+    initQRCode()
+  })
+
+  elements.qrSizeInput.addEventListener('input', e => {
+    qrConfig.width = e.currentTarget.value
+    qrConfig.height = e.currentTarget.value
+    elements.qrSizeSlider.value = e.currentTarget.value
+    initQRCode()
+  })
+
+  elements.qrColorLightSelector.addEventListener('input', e => {
+    qrConfig.colorLight = e.currentTarget.value
+    initQRCode()
+  })
+
+  elements.qrColorDarkSelector.addEventListener('input', e => {
+    qrConfig.colorDark = e.currentTarget.value
+    initQRCode()
+  })
+
+  initQRCode()
+</script>
+</body>
+</html>

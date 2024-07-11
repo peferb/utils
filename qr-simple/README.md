@@ -2,7 +2,11 @@
 
 Simple QR code generation using [qrcodejs](https://github.com/davidshimjs/qrcodejs)
 
-### TODO
-Test implement using other packages for more options
-- https://github.com/bitjson/qr-code
-- https://www.npmjs.com/package/easyqrcodejs
+### Features
+- [x] Custom text
+- [x] Resize
+- [x] Select foreground/background color
+- [ ] Select positioning colors
+- [ ] Image in QR code
+- [ ] Spacing height
+- [ ] Spacing color
