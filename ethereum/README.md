@@ -46,7 +46,7 @@ node generate-wallet --wallets=3 --endsWith=42 --writeToFile
 # filter addresses ending with string
 # output example: 0x8b7B7Eec6e3dEFE6e14A44C66d7DBa8D5Ef44E42
 
---includes=LOL
+--includes=42
 # filter adresses on text string included anywhere in the adresses 
 # output example: 0x8eCbc28b7B5DE037787536EE404209F676aD2e56
 
