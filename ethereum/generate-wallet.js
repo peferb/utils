@@ -6,13 +6,14 @@ const defaultValues = {
   wallets: 1,
   endsWith: false,
   startsWith: false,
+  includes: false,
   writeToFile: false,
 }
 const argv = {
   ...defaultValues,
   ...minimist(process.argv.slice(2), {
     number: ['wallets'],
-    string: ['endsWith', 'startsWith'],
+    string: ['endsWith', 'startsWith', 'includes'],
     boolean: ['writeToFile'],
   })
 }
@@ -29,12 +30,14 @@ do {
   const wallet = new ethers.Wallet.createRandom()
   let match = false
   switch (true) {
-    case !argv.startsWith && !argv.endsWith:
+    case !argv.startsWith && !argv.endsWith && !argv.includes:
       match = true
       break
     case argv.startsWith && wallet.address.startsWith(`0x${argv.startsWith}`):
       match = true
     case argv.endsWith && wallet.address.endsWith(argv.endsWith):
+      match = true
+    case argv.includes && wallet.address.includes(argv.includes):
       match = true
   }
 
