@@ -1,5 +1,5 @@
-# peferb/utils
-_Random utils for fun hobby stuff_
+# utils
+Random utils for fun hobby stuff
 
 ## [shamirs-secret](https://github.com/peferb/utils/tree/main/shamirs-secret)
 [Shamirs Secret on Wikipedia](https://en.wikipedia.org/wiki/Shamir%27s_secret_sharing)
