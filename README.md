@@ -1,5 +1,5 @@
 # utils
-Random utils for fun hobby stuff
+Random utils for fun hobby stuff. Such as QR code generation, Shamir Secret splitting and Ethereum wallet generation
 
 ## [shamirs-secret](https://github.com/peferb/utils/tree/main/shamirs-secret)
 [Shamirs Secret on Wikipedia](https://en.wikipedia.org/wiki/Shamir%27s_secret_sharing)
