@@ -4,20 +4,26 @@ const minimist = require('minimist')
 
 const defaultValues = {
   wallets: 1,
-  endsWith: false,
-  startsWith: false,
-  includes: false,
+  endsWith: undefined,
+  startsWith: undefined,
+  includes: undefined,
   writeToFile: false,
+  ignoreCasing: false
 }
-const argv = {
+const args = {
   ...defaultValues,
   ...minimist(process.argv.slice(2), {
     number: ['wallets'],
     string: ['endsWith', 'startsWith', 'includes'],
-    boolean: ['writeToFile'],
+    boolean: ['writeToFile', 'ignoreCasing'],
   })
 }
-delete argv._
+delete args._
+if (args.ignoreCasing) {
+  args.startsWith = args.startsWith ? args.startsWith.toLowerCase() : undefined
+  args.endsWith = args.endsWith ? args.endsWith.toLowerCase() : undefined
+  args.includes = args.includes ? args.includes.toLowerCase() : undefined
+}
 
 let wallets = [],
   iteration = 0
@@ -25,29 +31,30 @@ do {
   iteration++
   console.clear()
   console.log(`try #${iteration}`)
-  console.log(`${wallets.length} of ${argv.wallets} found`)
+  console.log(`${wallets.length} of ${args.wallets} found`)
 
   const wallet = new ethers.Wallet.createRandom()
+  const address = args.ignoreCasing ? wallet.address.toLowerCase() : wallet.address
   let match = false
   switch (true) {
-    case !argv.startsWith && !argv.endsWith && !argv.includes:
+    case !args.startsWith && !args.endsWith && !args.includes:
       match = true
       break
-    case argv.startsWith && wallet.address.startsWith(`0x${argv.startsWith}`):
+    case args.startsWith && address.startsWith(`0x${args.startsWith}`):
       match = true
-    case argv.endsWith && wallet.address.endsWith(argv.endsWith):
+    case args.endsWith && address.endsWith(args.endsWith):
       match = true
-    case argv.includes && wallet.address.includes(argv.includes):
+    case args.includes && address.includes(args.includes):
       match = true
   }
 
   if (match) {
     wallets.push(wallet)
   }
-} while (wallets.length < argv.wallets)
+} while (wallets.length < args.wallets)
 
 console.clear()
-if (argv.writeToFile) {
+if (args.writeToFile) {
   if (!fs.existsSync("./tmp")) {
     fs.mkdirSync("./tmp")
   }
@@ -57,7 +64,8 @@ if (argv.writeToFile) {
   let stream = fs.createWriteStream(file)
   stream.once('open', () => {
     stream.write(`ETHEREUM ADDRESSES\n`)
-    stream.write(`args: ${JSON.stringify(argv, null, 4)}\n\n`)
+    stream.write(`generated ${new Date().toUTCString()}\n`)
+    stream.write(`args: ${JSON.stringify(args, null, 4)}\n\n`)
     wallets.forEach(wallet => {
       stream.write(`ADDRESS: ${wallet.address}\n`)
       stream.write(`MNEMONIC: ${wallet.mnemonic.phrase}\n`)
