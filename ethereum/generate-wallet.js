@@ -52,9 +52,8 @@ if (argv.writeToFile) {
   const file = `./tmp/${unixTime}.txt`
   console.log(`Tried ${iteration} wallets, ${wallets.length} matched criteria\nWriting to file "${file}"`)
   let stream = fs.createWriteStream(file);
-  stream.once('open', function (fd) {
+  stream.once('open', () => {
     stream.write(`ETHEREUM ADDRESSES\n`)
-    delete argv._
     stream.write(`args: ${JSON.stringify(argv, null, 4)}\n\n`)
     wallets.forEach(wallet => {
       stream.write(`ADDRESS: ${wallet.address}\n`)
