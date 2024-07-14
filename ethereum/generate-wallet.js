@@ -8,7 +8,15 @@ const defaultValues = {
   startsWith: false,
   writeToFile: false,
 }
-const argv = {...defaultValues, ...minimist(process.argv.slice(2))}
+const argv = {
+  ...defaultValues,
+  ...minimist(process.argv.slice(2), {
+    number: ['wallets'],
+    string: ['endsWith', 'startsWith'],
+    boolean: ['writeToFile'],
+  })
+}
+delete argv._
 
 let wallets = [],
   iteration = 0
