@@ -32,7 +32,7 @@ do {
     case !argv.startsWith && !argv.endsWith:
       match = true
       break
-    case argv.startsWith && wallet.address.startsWith(argv.startsWith):
+    case argv.startsWith && wallet.address.startsWith(`0x${argv.startsWith}`):
       match = true
     case argv.endsWith && wallet.address.endsWith(argv.endsWith):
       match = true
