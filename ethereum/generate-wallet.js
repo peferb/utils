@@ -4,8 +4,8 @@ const minimist = require('minimist')
 
 const defaultValues = {
   wallets: 1,
-  endsWidth: false,
-  startsWidth: false,
+  endsWith: false,
+  startsWith: false,
   writeToFile: false,
 }
 const argv = {...defaultValues, ...minimist(process.argv.slice(2))}
@@ -21,12 +21,12 @@ do {
   const wallet = new ethers.Wallet.createRandom()
   let match = false
   switch (true) {
-    case !argv.startsWidth && !argv.endsWidth:
+    case !argv.startsWith && !argv.endsWith:
       match = true
       break
-    case argv.startsWidth && wallet.address.startsWith(argv.startsWidth):
+    case argv.startsWith && wallet.address.startsWith(argv.startsWith):
       match = true
-    case argv.endsWidth && wallet.address.endsWith(argv.endsWidth):
+    case argv.endsWith && wallet.address.endsWith(argv.endsWith):
       match = true
   }
 
