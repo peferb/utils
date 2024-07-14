@@ -1,6 +1,7 @@
 const fs = require('fs')
 const ethers = require('ethers')
 const minimist = require('minimist')
+const hex42Regex = new RegExp(/[^a-fA-F 0-9]/g)
 
 const defaultValues = {
   wallets: 1,
@@ -19,6 +20,16 @@ const args = {
   })
 }
 delete args._
+if (args.startsWith && hex42Regex.test(args.startsWith)) {
+  throw new Error('BAD INPUT: --startsWith, only a-z, A-Z and 0-9 allowed')
+}
+if (args.endsWith && hex42Regex.test(args.endsWith)) {
+  throw new Error('BAD INPUT, --endsWith, only a-z, A-Z and 0-9 allowed')
+}
+if (args.includes && hex42Regex.test(args.includes)) {
+  throw new Error('BAD INPUT, --includes, only a-z, A-Z and 0-9 allowed')
+}
+
 if (args.ignoreCasing) {
   args.startsWith = args.startsWith ? args.startsWith.toLowerCase() : undefined
   args.endsWith = args.endsWith ? args.endsWith.toLowerCase() : undefined
