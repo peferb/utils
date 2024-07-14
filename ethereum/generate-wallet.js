@@ -1,4 +1,4 @@
-const fs = require('fs');
+const fs = require('fs')
 const ethers = require('ethers')
 const minimist = require('minimist')
 
@@ -46,12 +46,12 @@ do {
 console.clear()
 if (argv.writeToFile) {
   if (!fs.existsSync("./tmp")) {
-    fs.mkdirSync("./tmp");
+    fs.mkdirSync("./tmp")
   }
   const unixTime = Math.floor(new Date().getTime() / 1000)
   const file = `./tmp/${unixTime}.txt`
   console.log(`Tried ${iteration} wallets, ${wallets.length} matched criteria\nWriting to file "${file}"`)
-  let stream = fs.createWriteStream(file);
+  let stream = fs.createWriteStream(file)
   stream.once('open', () => {
     stream.write(`ETHEREUM ADDRESSES\n`)
     stream.write(`args: ${JSON.stringify(argv, null, 4)}\n\n`)
@@ -60,9 +60,9 @@ if (argv.writeToFile) {
       stream.write(`MNEMONIC: ${wallet.mnemonic.phrase}\n`)
       stream.write(`PRIVATE KEY: ${wallet.privateKey}\n\n`)
     })
-    stream.end();
+    stream.end()
     console.log(`Done!`)
-  });
+  })
 } else {
   wallets.forEach(wallet => {
     console.log(`ADDRESS: ${wallet.address}`)
